@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: employeeLogin.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: employeeLogin.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './employeeLogin.css';
+import React, { useState } from "react";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import LoginButton from "./login";
+import LogoutButton from "./logout";
+import { useEffect} from "react";
+import { gapi } from 'gapi-script';
+
+const clientId = "701943938891-m4tuu3ab7rui5fu18kgesgdnvn5bplg3.apps.googleusercontent.com";
+
+/**
+ * This function handles the overall processes that take place for all employee
+ * authentication, login, as well as our security. It uses a database login, as well as
+ * a Google OAuth2 login for servers to access the ordering screens.
+ * @returns {JSX.Element}
+ * @constructor
+ */
+function EmployeeLogin() {
+
+    useEffect(() => {
+        function start()
+        {
+            gapi.client.init({
+                client_id: clientId,
+                scope: "profile"
+            })
+        }
+
+        gapi.load('client:auth2', start);
+    });
+
+    const [managerNumber, setManagerNumber] = useState('');
+    const [managers, setManager] = useState([]);
+    const [employeeNumber, setEmployeeNumber] = useState('');
+    const [employees, setEmployee] = useState([]);
+
+    const navigate = useNavigate();
+    /**
+     * Change to the landing page on successful button click.
+     */
+    const changeToLanding = () =>{
+        navigate('/');
+        // navigate('./customer_pages/menuOrdering', {state: {drinkIds}});
+    }
+    /**
+     * Used to push text field data into a format that can be parsed into a JSON.
+     */
+    const [formData, setFormData] = useState({
+        pass: '',
+        user: '',
+    });
+    /**
+     * handleInput updates fromData for a POST API request,
+     * it also updates properly for employee and manager numbers.
+     * This information is needed so that we can use a map to verify credentials.
+     * @param event
+     */
+
+    const handleInput = (event) => {
+        setFormData({...formData, [event.target.name]: event.target.value})
+        setEmployeeNumber(event.target.value)
+        setManagerNumber(event.target.value)
+    }
+
+    /**
+     * This functions handles the API and backend for the manager_id.
+     */
+    function searchManager() {
+        axios.get(`http://localhost:3000/api/login_info?manager_id=${managerNumber}`)
+            .then(function(response) {
+                setManager(response.data);
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+    }
+
+    /**
+     * This functions handles the API and backend for the employee_id.
+     */
+    function searchEmployee() {
+        axios.get(`http://localhost:3000/api/login_info?server_id=${employeeNumber}`)
+            .then(function(response) {
+                setManager(response.data);
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+    }
+
+    /**
+     * This functions handles when the submit button is pressed, it
+     * sends the JSON with the correct information in it to the backend to be parsed in the database.
+     * @param event
+     */
+    function handleSubmit(event) {
+        event.preventDefault();
+        console.log(managerNumber);
+
+        axios.post(`http://localhost:3000/api/userPass`,{formData}, {headers: { "Content-Type": "application/json" }})
+
+            .then(res=>{
+                console.log(formData);
+                console.log(res);
+
+                if(formData.user === "2519" &amp;&amp; formData.pass === "4321")
+                {
+                    navigate("/login/managerlanding");
+                }
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        searchManager();
+        searchEmployee();
+        console.log("user" + formData.user,"pass" + formData.pass);
+
+
+
+
+    }
+
+    return (
+        &lt;div className="App">
+
+
+
+            &lt;div id="banner">
+
+
+
+                &lt;h1 className="text-5xl font-bold grid grid-cols-3 gap-4 content-center">
+
+                    &lt;div id="logo">
+                        &lt;img src={require('./images/WhiteCFAIcon.png')} alt="" height="200" width="120"/>
+                    &lt;/div>
+
+
+                    &lt;div id="back_button" className="text-1xl  font-light rounded-b-lg rounded-t-lg grid place-items-center h-screen">
+                        &lt;button onClick={changeToLanding} > &lt;img src={require('./images/backBack.png')} alt="" width={"40"}/> &lt;/button>
+                    &lt;/div>
+
+                &lt;/h1>
+
+            &lt;/div>
+            &lt;div className="custom-shape-divider-top-1682377788" >
+                &lt;svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                     preserveAspectRatio="none">
+                    &lt;path
+                        d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                        className="shape-fill">&lt;/path>
+                &lt;/svg>
+            &lt;/div>
+
+
+            &lt;div id = "manager" className="drop-shadow-2x1 text-7xl text-white font-bold rounded-b-lg rounded-t-lg">
+                Chick-Fil-A Employee Login
+            &lt;/div>
+
+            &lt;div id = "login" className="rounded-b-lg rounded-t-lg">
+
+                &lt;div className="submit">
+
+                    &lt;form onSubmit ={handleSubmit} autoComplete="off">
+
+                        &lt;div id="spacer">
+                            &lt;label className="block text-white mr-48"> &lt;/label>
+                        &lt;/div>
+                        &lt;div id = "serving2" className="drop-shadow-2x1 text-2xl text-white font-light">
+                            Manager Login
+
+                        &lt;/div>
+
+                        &lt;hr className="w-96 h-px my-8 mx-auto bg-gray-100 border-0 dark:bg-gray-400"/>
+                        &lt;div id="field" className="drop-shadow-1xl bg-white w-96 border-2 border-slate-400 h-16 rounded-b-lg rounded-t-lg grid place-items-center">
+
+                            &lt;input type="text"
+                                   name="user"
+                                   placeholder={"Username"}
+                                   onChange={handleInput}
+                                   autoComplete="off"/>
+                        &lt;/div>
+
+                        &lt;div id="spacer">
+                            &lt;label className="text-white mr-48"> space &lt;/label>
+                        &lt;/div>
+
+                        &lt;div id="field" className="drop-shadow-1xl bg-white w-96 border-2 border-slate-400 h-16 rounded-b-lg rounded-t-lg grid place-items-center">
+
+                            &lt;input type="password"
+                                   name="password"
+                                   placeholder={"Password"}
+                                   onChange={handleInput}
+                                   autoComplete="off"/>
+                        &lt;/div>
+
+                        &lt;hr className="drop-shadow-2x1 w-96 h-px my-8 mx-auto bg-gray-100 border-0 dark:bg-gray-400"/>
+                        &lt;div id = "serving" className="drop-shadow-2x1 text-2xl text-white font-light">
+                            Server: &lt;div id="google"> &lt;LoginButton/> &lt;/div>
+                        &lt;/div>
+                        &lt;div id="submit_button" className="drop-shadow-2xl bg-red-600 hover:bg-red-700 active:bg-blue-950 text-1xl border-slate-400 font-light rounded-full grid place-items-center h-screen">
+                            &lt;button> Submit &lt;/button>
+
+
+                        &lt;/div>
+
+                    &lt;/form>
+
+
+
+
+                    &lt;div className="spacer">
+                    &lt;/div>
+                    &lt;div className="text-1xl bg-white font-light rounded-b-lg rounded-t-lg grid place-items-center v-screen">
+
+                        &lt;table id="product-table">
+                            &lt;thead>
+                            &lt;tr>
+                            &lt;/tr>
+                            &lt;/thead>
+
+                            &lt;tbody>
+                            {managers.map((manager) => (
+                                &lt;tr key={manager.pass}>
+                                    {managers.map((manager) => (
+                                        &lt;tr key={manager.user}>
+                                            &lt;th>unsuccessful login: try again&lt;/th>
+                                            {/* &lt;td>{ manid = manager.manager_id}&lt;/td>
+                                            &lt;td>{manager.first_name}&lt;/td>
+                                            &lt;td>{manager.last_name}&lt;/td>
+                                            &lt;td>{manpass = manager.password}&lt;/td> */}
+                                        &lt;/tr>
+
+
+                                    ))}
+
+                                &lt;/tr>
+
+
+
+                            ))}
+
+                            &lt;/tbody>
+
+
+                            &lt;tbody>
+                            {employees.map((employee) => (
+                                &lt;tr key={employee.pass}>
+                                    {employees.map((employee) => (
+                                        &lt;tr key={employee.user}>
+                                            &lt;th>unsuccessful login: try again&lt;/th>
+
+                                            {/*}  &lt;td>{employee.server_id}&lt;/td>
+                                            &lt;td>{employee.first_name}&lt;/td>
+                                            &lt;td>{employee.last_name}&lt;/td>
+                                            &lt;td>{employee.password}&lt;/td> */}
+                                        &lt;/tr>
+                                    ))}
+                                &lt;/tr>
+                            ))}
+
+
+                            &lt;/tbody>
+
+
+
+                        &lt;/table>
+
+
+                    &lt;/div>
+
+                &lt;/div>
+
+
+
+            &lt;/div>
+
+
+
+
+
+
+        &lt;/div>
+    );
+}
+
+export default EmployeeLogin;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CartItem.html">CartItem</a></li><li><a href="CompleteOrder.html">CompleteOrder</a></li><li><a href="EmployeeLogin.html">EmployeeLogin</a></li><li><a href="LandingPage.html">LandingPage</a></li><li><a href="Login.html">Login</a></li><li><a href="PageRedirection.html">PageRedirection</a></li><li><a href="Template.html">Template</a></li></ul><h3>Global</h3><ul><li><a href="global.html#MyComponent">MyComponent</a></li><li><a href="global.html#addInventory">addInventory</a></li><li><a href="global.html#addMenu">addMenu</a></li><li><a href="global.html#beverageItems">beverageItems</a></li><li><a href="global.html#commonReport">commonReport</a></li><li><a href="global.html#confirmItemPopUp">confirmItemPopUp</a></li><li><a href="global.html#createPopup">createPopup</a></li><li><a href="global.html#disableButtons">disableButtons</a></li><li><a href="global.html#dressingItems">dressingItems</a></li><li><a href="global.html#enableButtons">enableButtons</a></li><li><a href="global.html#entreeItems">entreeItems</a></li><li><a href="global.html#handleAddInventoryButtonClick">handleAddInventoryButtonClick</a></li><li><a href="global.html#handleAddMenuButtonClick">handleAddMenuButtonClick</a></li><li><a href="global.html#handleCommonReportButtonClick">handleCommonReportButtonClick</a></li><li><a href="global.html#handleExcessReportButtonClick">handleExcessReportButtonClick</a></li><li><a href="global.html#handleRemoveInventoryButtonClick">handleRemoveInventoryButtonClick</a></li><li><a href="global.html#handleRemoveMenuButtonClick">handleRemoveMenuButtonClick</a></li><li><a href="global.html#handleRestockInventoryButtonClick">handleRestockInventoryButtonClick</a></li><li><a href="global.html#handleRestockReportButtonClick">handleRestockReportButtonClick</a></li><li><a href="global.html#handleSalesReportButtonClick">handleSalesReportButtonClick</a></li><li><a href="global.html#handleUpdateMenuButtonClick">handleUpdateMenuButtonClick</a></li><li><a href="global.html#handleViewInventoryButtonClick">handleViewInventoryButtonClick</a></li><li><a href="global.html#handleViewMenuButtonClick">handleViewMenuButtonClick</a></li><li><a href="global.html#handleXZReportButtonClick">handleXZReportButtonClick</a></li><li><a href="global.html#managerLanding">managerLanding</a></li><li><a href="global.html#mealItems">mealItems</a></li><li><a href="global.html#removeInventory">removeInventory</a></li><li><a href="global.html#removeMenu">removeMenu</a></li><li><a href="global.html#restockInventory">restockInventory</a></li><li><a href="global.html#restockReport">restockReport</a></li><li><a href="global.html#rows">rows</a></li><li><a href="global.html#saladItems">saladItems</a></li><li><a href="global.html#salesReport">salesReport</a></li><li><a href="global.html#sauceItems">sauceItems</a></li><li><a href="global.html#sideItems">sideItems</a></li><li><a href="global.html#treatItems">treatItems</a></li><li><a href="global.html#updateMenu">updateMenu</a></li><li><a href="global.html#viewInventory">viewInventory</a></li><li><a href="global.html#viewMenu">viewMenu</a></li><li><a href="global.html#viewXZ">viewXZ</a></li><li><a href="global.html#xzReport">xzReport</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 03 2023 00:02:56 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

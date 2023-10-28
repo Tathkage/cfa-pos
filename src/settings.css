@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body > iframe {
+    display: none;
+}
+
+#head{
+    color: black;
+    margin-left: 10vw;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5vh;
+}
+
+#settings{
+    margin-left: 10vw;
+    margin-bottom: 5vh;
+}
+
+#transoptions{
+    align-items: center;
+    justify-content: center;
+    margin-left: 10vw;
+
+}
+
+#google_translate_element{
+    margin-left: 10vw;
+}
+
+#land
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    outline: 0;
+    padding-right: 9vw;
+}
+
+#map{
+    margin-left: 32vw;
+    margin-bottom: 1vh;
+    width: 50vw;
+    z-index: 99;
+}

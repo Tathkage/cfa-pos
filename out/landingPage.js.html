@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: landingPage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: landingPage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { useNavigate } from 'react-router-dom';
+import './landingPageStylesheet.css';
+
+/**
+ * This component allows the user to navigate to several other pages depending on the type of user
+ * There are links to pages that allow you to start an order, login as an employee, and access information and settings.
+ * The landing page welcomes you to the site.
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const LandingPage = () => {
+
+    const navigate = useNavigate();
+
+    const changeToCustomer = () =>{
+        navigate('/order');
+        // navigate('./customer_pages/menuOrdering', {state: {drinkIds}});
+    }
+
+    const changeToSettings = () =>{
+        navigate('/settings');
+        // navigate('./customer_pages/menuOrdering', {state: {drinkIds}});
+    }
+
+    const changeToEmployee = () =>{
+        navigate('/login');
+        // navigate('./customer_pages/menuOrdering', {state: {drinkIds}});
+    }
+
+    return (
+        &lt;div id="land" className="flex flex-col items-center justify-center relative">
+
+            &lt;div className="image-text-container">
+                &lt;img src={require('./images/cfalogo.png')} alt="" className="image"/>
+                &lt;div className="text-button-container">
+                    &lt;div id="hungry" className="text drop-shadow-2x1 text-7xl text-white font-bold rounded-b-lg rounded-t-lg">
+                        Hungry?
+                    &lt;/div>
+                    &lt;button onClick={changeToCustomer} className="button-order hover:button-order text-order font-bold py-5 px-10 rounded-lg shadow-lg" style={{ fontSize: "40px" }}>
+                        Start Order
+                    &lt;/button>
+                &lt;/div>
+            &lt;/div>
+
+            &lt;div className="flex items-center justify-end absolute top-0 right-0 mt-4 mr-4">
+                &lt;button onClick={changeToEmployee} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 px-8 rounded-lg shadow-lg mr-2">Employee Login&lt;/button>
+                &lt;button onClick={changeToSettings} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 px-8 rounded-lg shadow-lg">
+                    &lt;div className="flex items-center justify-center">
+                        &lt;img src={require('./images/infoSettings.png')} alt="Settings" style={{width: '25px', height: '25px'}} />
+                    &lt;/div>
+                &lt;/button>
+            &lt;/div>
+
+            &lt;div className="custom-shape-divider-bottom-1682906198">
+                &lt;svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                     preserveAspectRatio="none">
+                    &lt;path
+                        d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+                        className="shape-fill">&lt;/path>
+                &lt;/svg>
+            &lt;/div>
+
+        &lt;/div>
+    );
+};
+
+export default LandingPage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CartItem.html">CartItem</a></li><li><a href="CompleteOrder.html">CompleteOrder</a></li><li><a href="EmployeeLogin.html">EmployeeLogin</a></li><li><a href="LandingPage.html">LandingPage</a></li><li><a href="Login.html">Login</a></li><li><a href="PageRedirection.html">PageRedirection</a></li><li><a href="Template.html">Template</a></li></ul><h3>Global</h3><ul><li><a href="global.html#MyComponent">MyComponent</a></li><li><a href="global.html#addInventory">addInventory</a></li><li><a href="global.html#addMenu">addMenu</a></li><li><a href="global.html#beverageItems">beverageItems</a></li><li><a href="global.html#commonReport">commonReport</a></li><li><a href="global.html#confirmItemPopUp">confirmItemPopUp</a></li><li><a href="global.html#createPopup">createPopup</a></li><li><a href="global.html#disableButtons">disableButtons</a></li><li><a href="global.html#dressingItems">dressingItems</a></li><li><a href="global.html#enableButtons">enableButtons</a></li><li><a href="global.html#entreeItems">entreeItems</a></li><li><a href="global.html#handleAddInventoryButtonClick">handleAddInventoryButtonClick</a></li><li><a href="global.html#handleAddMenuButtonClick">handleAddMenuButtonClick</a></li><li><a href="global.html#handleCommonReportButtonClick">handleCommonReportButtonClick</a></li><li><a href="global.html#handleExcessReportButtonClick">handleExcessReportButtonClick</a></li><li><a href="global.html#handleRemoveInventoryButtonClick">handleRemoveInventoryButtonClick</a></li><li><a href="global.html#handleRemoveMenuButtonClick">handleRemoveMenuButtonClick</a></li><li><a href="global.html#handleRestockInventoryButtonClick">handleRestockInventoryButtonClick</a></li><li><a href="global.html#handleRestockReportButtonClick">handleRestockReportButtonClick</a></li><li><a href="global.html#handleSalesReportButtonClick">handleSalesReportButtonClick</a></li><li><a href="global.html#handleUpdateMenuButtonClick">handleUpdateMenuButtonClick</a></li><li><a href="global.html#handleViewInventoryButtonClick">handleViewInventoryButtonClick</a></li><li><a href="global.html#handleViewMenuButtonClick">handleViewMenuButtonClick</a></li><li><a href="global.html#handleXZReportButtonClick">handleXZReportButtonClick</a></li><li><a href="global.html#managerLanding">managerLanding</a></li><li><a href="global.html#mealItems">mealItems</a></li><li><a href="global.html#removeInventory">removeInventory</a></li><li><a href="global.html#removeMenu">removeMenu</a></li><li><a href="global.html#restockInventory">restockInventory</a></li><li><a href="global.html#restockReport">restockReport</a></li><li><a href="global.html#rows">rows</a></li><li><a href="global.html#saladItems">saladItems</a></li><li><a href="global.html#salesReport">salesReport</a></li><li><a href="global.html#sauceItems">sauceItems</a></li><li><a href="global.html#sideItems">sideItems</a></li><li><a href="global.html#treatItems">treatItems</a></li><li><a href="global.html#updateMenu">updateMenu</a></li><li><a href="global.html#viewInventory">viewInventory</a></li><li><a href="global.html#viewMenu">viewMenu</a></li><li><a href="global.html#viewXZ">viewXZ</a></li><li><a href="global.html#xzReport">xzReport</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 03 2023 00:02:56 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

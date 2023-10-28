@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: customer_pages/popups/buttonToggle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: customer_pages/popups/buttonToggle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Creates the initial popup with a header and a close button.
+ * The header differs based on what the popup is.
+ *
+ * @param headerText The header of the popup. The text that is displayed.
+ * @param onCloseClick Function passed into the closed button. When the closed button is pressed the popup is removed, the dimming affect is removed, and all the buttons are enabled
+ * @returns {HTMLDivElement} Popup is returned for other functions to reference
+ */
+export function createPopup(headerText, onCloseClick) {
+    const popup = document.createElement("div");
+    popup.className = "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md z-50";
+
+    const header = document.createElement("h2");
+    header.innerHTML = headerText;
+    header.className = "mb-4 font-bold text-lg";
+    popup.appendChild(header);
+
+    const closeButton = document.createElement("img");
+    closeButton.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Grey_close_x.svg/1024px-Grey_close_x.svg.png";
+    closeButton.alt = "Close";
+    closeButton.classList.add("cursor-pointer", "absolute", "top-0", "right-0", "mt-4", "mr-4", "h-5");
+    closeButton.addEventListener("click", onCloseClick);
+    popup.appendChild(closeButton);
+
+    return popup;
+}
+
+/**
+ * Enables all the buttons present on the screen
+ */
+export function enableButtons() {
+    const buttons = document.getElementsByTagName("button");
+    for (let i = 0; i &lt; buttons.length; i++) {
+        buttons[i].disabled = false;
+    }
+}
+
+/**
+ * Disables all the buttons present on the screen
+ */
+export function disableButtons() {
+    const buttons = document.getElementsByTagName("button");
+    for (let i = 0; i &lt; buttons.length; i++) {
+        buttons[i].disabled = true;
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CartItem.html">CartItem</a></li><li><a href="CompleteOrder.html">CompleteOrder</a></li><li><a href="EmployeeLogin.html">EmployeeLogin</a></li><li><a href="LandingPage.html">LandingPage</a></li><li><a href="Login.html">Login</a></li><li><a href="PageRedirection.html">PageRedirection</a></li><li><a href="Template.html">Template</a></li></ul><h3>Global</h3><ul><li><a href="global.html#MyComponent">MyComponent</a></li><li><a href="global.html#addInventory">addInventory</a></li><li><a href="global.html#addMenu">addMenu</a></li><li><a href="global.html#beverageItems">beverageItems</a></li><li><a href="global.html#commonReport">commonReport</a></li><li><a href="global.html#confirmItemPopUp">confirmItemPopUp</a></li><li><a href="global.html#createPopup">createPopup</a></li><li><a href="global.html#disableButtons">disableButtons</a></li><li><a href="global.html#dressingItems">dressingItems</a></li><li><a href="global.html#enableButtons">enableButtons</a></li><li><a href="global.html#entreeItems">entreeItems</a></li><li><a href="global.html#handleAddInventoryButtonClick">handleAddInventoryButtonClick</a></li><li><a href="global.html#handleAddMenuButtonClick">handleAddMenuButtonClick</a></li><li><a href="global.html#handleCommonReportButtonClick">handleCommonReportButtonClick</a></li><li><a href="global.html#handleExcessReportButtonClick">handleExcessReportButtonClick</a></li><li><a href="global.html#handleRemoveInventoryButtonClick">handleRemoveInventoryButtonClick</a></li><li><a href="global.html#handleRemoveMenuButtonClick">handleRemoveMenuButtonClick</a></li><li><a href="global.html#handleRestockInventoryButtonClick">handleRestockInventoryButtonClick</a></li><li><a href="global.html#handleRestockReportButtonClick">handleRestockReportButtonClick</a></li><li><a href="global.html#handleSalesReportButtonClick">handleSalesReportButtonClick</a></li><li><a href="global.html#handleUpdateMenuButtonClick">handleUpdateMenuButtonClick</a></li><li><a href="global.html#handleViewInventoryButtonClick">handleViewInventoryButtonClick</a></li><li><a href="global.html#handleViewMenuButtonClick">handleViewMenuButtonClick</a></li><li><a href="global.html#handleXZReportButtonClick">handleXZReportButtonClick</a></li><li><a href="global.html#managerLanding">managerLanding</a></li><li><a href="global.html#mealItems">mealItems</a></li><li><a href="global.html#removeInventory">removeInventory</a></li><li><a href="global.html#removeMenu">removeMenu</a></li><li><a href="global.html#restockInventory">restockInventory</a></li><li><a href="global.html#restockReport">restockReport</a></li><li><a href="global.html#rows">rows</a></li><li><a href="global.html#saladItems">saladItems</a></li><li><a href="global.html#salesReport">salesReport</a></li><li><a href="global.html#sauceItems">sauceItems</a></li><li><a href="global.html#sideItems">sideItems</a></li><li><a href="global.html#treatItems">treatItems</a></li><li><a href="global.html#updateMenu">updateMenu</a></li><li><a href="global.html#viewInventory">viewInventory</a></li><li><a href="global.html#viewMenu">viewMenu</a></li><li><a href="global.html#viewXZ">viewXZ</a></li><li><a href="global.html#xzReport">xzReport</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 03 2023 00:02:56 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

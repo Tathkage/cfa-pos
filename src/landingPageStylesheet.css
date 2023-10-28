@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: white;
+
+}
+
+#land {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#start_order {
+
+}
+
+#hungry {
+    color: #DD0031;
+    padding-bottom: 3vh;
+}
+
+.text-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 17vw;
+}
+
+.image-text-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20vh;
+    margin-left: 9vh;
+    height: 100%;
+}
+
+.image {
+    height: 50vh;
+    width: 42vw;
+    object-fit: cover;
+    transform-origin: center;
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.text {
+    background-color: white;
+    color: #DD0031;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-order {
+    --tw-text-opacity: 1;
+    color: #ffffff;
+}
+
+.button-order {
+    --tw-bg-opacity: 1;
+    background-color: #204e6f;
+}
+
+.hover\:button-order:hover {
+    --tw-bg-opacity: 1;
+    background-color: #2e6e9b;
+}
+
+h1 {
+    color: #DD0031;
+}
+.space {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+}
+
+.big_space {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+}
+
+.space_right {
+    margin-top: 9vh;
+    margin-left: 66.5vw;
+    display: flex;
+    justify-content: right;
+}
+
+.custom-shape-divider-bottom-1682906198 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-bottom-1682906198 svg {
+    position: relative;
+    display: block;
+    width: calc(138% + 1.3px);
+    height: 35vh;
+}
+
+.custom-shape-divider-bottom-1682906198 .shape-fill {
+    fill: #DD0031;
+}

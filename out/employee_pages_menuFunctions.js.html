@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: employee_pages/menuFunctions.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: employee_pages/menuFunctions.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './managerLanding.css';
+import { createPopup, enableButtons, disableButtons } from '../customer_pages/popups/buttonToggle.js';
+import { viewMenu, updateMenu, addMenu, removeMenu } from './managerLandingFunctions';
+
+/**
+ * Handles the "View Menu" button when clicked and creates a popup in the middle of the screen
+ * This displays the data of the menu data table along with its attributes.
+ * The search bar allows the manager to search for a specific menu item
+ *
+ * @returns {Promise&lt;void>}
+ */
+export async function handleViewMenuButtonClick() {
+    const menuData = await viewMenu();
+
+    const popup = createPopup("View Menu", function() {
+        document.body.removeChild(popup);
+        document.body.removeChild(dimElement);
+        enableButtons();
+    });
+
+    const tableContainer = document.createElement("div");
+    tableContainer.className = "h-96 overflow-y-scroll"
+    tableContainer.id = "table-container";
+
+    const table = document.createElement("table");
+    table.className = "border-collapse";
+
+    const tableHead = document.createElement("thead");
+    tableHead.innerHTML = `
+        &lt;tr class="text-left border-b border-gray-300">
+            &lt;th class="py-4 px-6">Number&lt;/th>
+            &lt;th class="py-4 px-6">Name&lt;/th>
+            &lt;th class="py-4 px-6">Price&lt;/th>
+        &lt;/tr>
+    `;
+    table.appendChild(tableHead);
+
+    const tableBody = document.createElement("tbody");
+    for (const item of menuData) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            &lt;td class="border-gray-300 border-t px-6 py-4">${item.product_number}&lt;/td>
+            &lt;td class="border-gray-300 border-t px-6 py-4">${item.name}&lt;/td>
+            &lt;td class="border-gray-300 border-t px-6 py-4">${item.price}&lt;/td>
+        `;
+        tableBody.appendChild(row);
+    }
+    table.appendChild(tableBody);
+    tableContainer.appendChild(table);
+    popup.appendChild(tableContainer);
+
+    const searchBarContainer = document.createElement("div");
+    searchBarContainer.className = "mt-4";
+
+    const searchBar = document.createElement("input");
+    searchBar.type = "text";
+    searchBar.placeholder = "Search...";
+    searchBar.className = "border border-gray-400 px-4 py-2 rounded w-full";
+    searchBar.addEventListener("input", function() {
+        const filterValue = searchBar.value.toLowerCase();
+        const rows = tableBody.getElementsByTagName("tr");
+        for (let i = 0; i &lt; rows.length; i++) {
+            const name = rows[i].getElementsByTagName("td")[1].textContent.toLowerCase();
+            if (name.includes(filterValue)) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    });
+    searchBarContainer.appendChild(searchBar);
+    popup.appendChild(searchBarContainer);
+
+    const dimElement = document.createElement("div");
+    dimElement.classList.add("fixed", "inset-0", "bg-black", "opacity-50", "z-40");
+
+    disableButtons();
+    document.body.appendChild(dimElement);
+    document.body.appendChild(popup);
+}
+
+/**
+ * Handles the "Update Menu Item Price" button when clicked and creates a popup in the middle of the screen
+ * It displays a popup window with a dropdown menu of available menu items
+ * and a text input field for the new price.
+ * When the "Update Price" button is clicked, the selected menu item's price is updated
+ * with the specified price, and the new menu price is displayed in the dropdown menu.
+ *
+ * @returns {Promise&lt;void>}
+ */
+export async function handleUpdateMenuButtonClick() {
+    const menuData = await viewMenu();
+
+    const popup = createPopup("Update Price", function() {
+        document.body.removeChild(popup);
+        document.body.removeChild(dimElement);
+        enableButtons();
+    });
+
+    const dropDown = document.createElement("div");
+    dropDown.className = "flex flex-col mb-4";
+    dropDown.innerHTML = `
+        &lt;label class="mb-2 font-semibold">Menu Item (Current Price)&lt;/label>
+    `;
+
+    const dropDownBody = document.createElement("select")
+    dropDownBody.className = "border rounded-md px-2 py-1 w-96"
+    for (const item of menuData) {
+        const dropDownOption = document.createElement("option");
+        dropDownOption.text = `${item.name}`;
+
+        const quantityDiv = document.createElement("div");
+        quantityDiv.textContent = ` (${item.price})`;
+        quantityDiv.style.marginLeft = "10px";
+        dropDownOption.appendChild(quantityDiv);
+        dropDownBody.appendChild(dropDownOption);
+    }
+    dropDown.appendChild(dropDownBody);
+    popup.appendChild(dropDown);
+
+    const priceText = document.createElement("div");
+    priceText.className = "flex flex-col mb-4";
+    priceText.innerHTML = `
+        &lt;label class="mb-2 font-semibold">Price&lt;/label>
+        &lt;input type="number" class="border rounded-md px-2 py-1" placeholder="Enter updated price">
+        &lt;p id="warning-message" class="text-red-500 text-sm hidden">Please enter a valid price.&lt;/p>
+    `;
+    popup.appendChild(priceText);
+
+    const outputText = document.createElement("p");
+    outputText.className = "text-sm mt-4";
+
+    const updateButton = document.createElement("button");
+    updateButton.className = "bg-blue-500 text-white px-4 py-2 rounded-md mr-4";
+    updateButton.innerHTML = "Update Price";
+    updateButton.addEventListener("click", function() {
+        const selectedItem = menuData[dropDownBody.selectedIndex];
+        const selectedItemName = selectedItem.name;
+        const updatedPrice = parseFloat(priceText.querySelector("input").value).toFixed(2);
+        if (isNaN(updatedPrice) || updatedPrice &lt;= 0) {
+            const warningMessage = document.getElementById("warning-message");
+            warningMessage.classList.remove("hidden");
+            return;
+        }
+        updateMenu(selectedItemName, updatedPrice);
+        const originalPrice = selectedItem.price;
+        selectedItem.price = updatedPrice;
+        const dropdownOption = dropDownBody.options[dropDownBody.selectedIndex];
+        dropdownOption.text = `${selectedItemName} (${selectedItem.price})`;
+
+        outputText.textContent = `${selectedItemName}'s price has been updated from ${originalPrice} to ${selectedItem.price}.`;
+        popup.appendChild(outputText);
+
+        const warningMessage = document.getElementById("warning-message");
+        if (!warningMessage.classList.contains("hidden")) {
+            warningMessage.classList.add("hidden");
+        }
+    });
+    popup.appendChild(updateButton);
+
+    const dimElement = document.createElement("div");
+    dimElement.classList.add("fixed", "inset-0", "bg-black", "opacity-50", "z-40");
+
+    disableButtons();
+    document.body.appendChild(dimElement);
+    document.body.appendChild(popup);
+}
+
+/**
+ * Handles the "Add Menu Item" button when clicked and creates a popup in the middle of the screen
+ * It allows the manager to input a string for the new menu item, and it
+ * allows the manager to also place the price of the menu item.
+ * When the "Add Item" button is clicked the menu item is added to the database
+ */
+export function handleAddMenuButtonClick() {
+    const popup = createPopup("Add Menu Item", function() {
+        document.body.removeChild(popup);
+        document.body.removeChild(dimElement);
+        enableButtons();
+    });
+
+    const nameText = document.createElement("div");
+    nameText.className = "flex flex-col mb-4";
+    nameText.innerHTML = `
+        &lt;label class="mb-2 font-semibold">Item Name&lt;/label>
+        &lt;input type="text" class="border rounded-md px-2 py-1 w-96" placeholder="Enter name of new menu item">
+    `;
+    popup.appendChild(nameText);
+
+    const priceText = document.createElement("div");
+    priceText.className = "flex flex-col mb-4";
+    priceText.innerHTML = `
+        &lt;label class="mb-2 font-semibold">Price&lt;/label>
+        &lt;input type="number" class="border rounded-md px-2 py-1" placeholder="Enter price">
+        &lt;p id="warning-message" class="text-red-500 text-sm hidden">Please enter a valid price.&lt;/p>
+    `;
+    popup.appendChild(priceText);
+
+    const outputText = document.createElement("p");
+    outputText.className = "text-sm mt-4";
+
+    const addButton = document.createElement("button");
+    addButton.className = "bg-blue-500 text-white px-4 py-2 rounded-md mr-4";
+    addButton.innerHTML = "Add Item";
+    addButton.addEventListener("click", function() {
+        const newItem = nameText.querySelector("input").value;
+        const price = parseFloat(priceText.querySelector("input").value);
+        if (isNaN(price) || price &lt;= 0) {
+            const warningMessage = document.getElementById("warning-message");
+            warningMessage.classList.remove("hidden");
+            return;
+        }
+        addMenu(newItem, price);
+        outputText.textContent = `${newItem} has been added with a price of ${price}.`;
+        popup.appendChild(outputText);
+
+        const warningMessage = document.getElementById("warning-message");
+        if (!warningMessage.classList.contains("hidden")) {
+            warningMessage.classList.add("hidden");
+        }
+    });
+    popup.appendChild(addButton);
+
+    const dimElement = document.createElement("div");
+    dimElement.classList.add("fixed", "inset-0", "bg-black", "opacity-50", "z-40");
+
+    disableButtons()
+    document.body.appendChild(dimElement);
+    document.body.appendChild(popup);
+}
+
+/**
+ * Handles the "Remove Menu" button when clicked and creates a popup in the middle of the screen
+ * The popup presents the manager with a drop down menu for all the menu items
+ * The "Remove Item" button removes the menu item from the database and all its attributes
+ *
+ * @returns {Promise&lt;void>}
+ */
+export async function handleRemoveMenuButtonClick() {
+    const menuData = await viewMenu();
+
+    const popup = createPopup("Remove Menu Item", function() {
+        document.body.removeChild(popup);
+        document.body.removeChild(dimElement);
+        enableButtons();
+    });
+
+    const dropDown = document.createElement("div");
+    dropDown.className = "flex flex-col mb-4";
+    dropDown.innerHTML = `
+        &lt;label class="mb-2 font-semibold">Menu Item&lt;/label>
+    `;
+
+    const dropDownBody = document.createElement("select")
+    dropDownBody.className = "border rounded-md px-2 py-1 w-96"
+    for (const item of menuData) {
+        const dropDownOption = document.createElement("option");
+        dropDownOption.text = `${item.name}`;
+        dropDownBody.appendChild(dropDownOption);
+    }
+    dropDown.appendChild(dropDownBody);
+    popup.appendChild(dropDown);
+
+    const outputText = document.createElement("p");
+    outputText.className = "text-sm mt-4";
+
+    const removeButton = document.createElement("button");
+    removeButton.className = "bg-blue-500 text-white px-4 py-2 rounded-md mr-4";
+    removeButton.innerHTML = "Remove Item";
+    removeButton.addEventListener("click", function() {
+        const selectedItem = menuData[dropDownBody.selectedIndex];
+        const selectedItemName = selectedItem.name;
+        removeMenu(selectedItemName);
+        outputText.textContent = `${selectedItemName} has/have been removed from the menu.`;
+        popup.appendChild(outputText);
+    });
+    popup.appendChild(removeButton);
+
+    const dimElement = document.createElement("div");
+    dimElement.classList.add("fixed", "inset-0", "bg-black", "opacity-50", "z-40");
+
+    disableButtons();
+    document.body.appendChild(dimElement);
+    document.body.appendChild(popup);
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CartItem.html">CartItem</a></li><li><a href="CompleteOrder.html">CompleteOrder</a></li><li><a href="EmployeeLogin.html">EmployeeLogin</a></li><li><a href="LandingPage.html">LandingPage</a></li><li><a href="Login.html">Login</a></li><li><a href="PageRedirection.html">PageRedirection</a></li><li><a href="Template.html">Template</a></li></ul><h3>Global</h3><ul><li><a href="global.html#MyComponent">MyComponent</a></li><li><a href="global.html#addInventory">addInventory</a></li><li><a href="global.html#addMenu">addMenu</a></li><li><a href="global.html#beverageItems">beverageItems</a></li><li><a href="global.html#commonReport">commonReport</a></li><li><a href="global.html#confirmItemPopUp">confirmItemPopUp</a></li><li><a href="global.html#createPopup">createPopup</a></li><li><a href="global.html#disableButtons">disableButtons</a></li><li><a href="global.html#dressingItems">dressingItems</a></li><li><a href="global.html#enableButtons">enableButtons</a></li><li><a href="global.html#entreeItems">entreeItems</a></li><li><a href="global.html#handleAddInventoryButtonClick">handleAddInventoryButtonClick</a></li><li><a href="global.html#handleAddMenuButtonClick">handleAddMenuButtonClick</a></li><li><a href="global.html#handleCommonReportButtonClick">handleCommonReportButtonClick</a></li><li><a href="global.html#handleExcessReportButtonClick">handleExcessReportButtonClick</a></li><li><a href="global.html#handleRemoveInventoryButtonClick">handleRemoveInventoryButtonClick</a></li><li><a href="global.html#handleRemoveMenuButtonClick">handleRemoveMenuButtonClick</a></li><li><a href="global.html#handleRestockInventoryButtonClick">handleRestockInventoryButtonClick</a></li><li><a href="global.html#handleRestockReportButtonClick">handleRestockReportButtonClick</a></li><li><a href="global.html#handleSalesReportButtonClick">handleSalesReportButtonClick</a></li><li><a href="global.html#handleUpdateMenuButtonClick">handleUpdateMenuButtonClick</a></li><li><a href="global.html#handleViewInventoryButtonClick">handleViewInventoryButtonClick</a></li><li><a href="global.html#handleViewMenuButtonClick">handleViewMenuButtonClick</a></li><li><a href="global.html#handleXZReportButtonClick">handleXZReportButtonClick</a></li><li><a href="global.html#managerLanding">managerLanding</a></li><li><a href="global.html#mealItems">mealItems</a></li><li><a href="global.html#removeInventory">removeInventory</a></li><li><a href="global.html#removeMenu">removeMenu</a></li><li><a href="global.html#restockInventory">restockInventory</a></li><li><a href="global.html#restockReport">restockReport</a></li><li><a href="global.html#rows">rows</a></li><li><a href="global.html#saladItems">saladItems</a></li><li><a href="global.html#salesReport">salesReport</a></li><li><a href="global.html#sauceItems">sauceItems</a></li><li><a href="global.html#sideItems">sideItems</a></li><li><a href="global.html#treatItems">treatItems</a></li><li><a href="global.html#updateMenu">updateMenu</a></li><li><a href="global.html#viewInventory">viewInventory</a></li><li><a href="global.html#viewMenu">viewMenu</a></li><li><a href="global.html#viewXZ">viewXZ</a></li><li><a href="global.html#xzReport">xzReport</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 03 2023 00:02:56 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

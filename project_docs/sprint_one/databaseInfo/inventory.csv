@@ -1,0 +1,98 @@
+inventory_id,name,arrival_date,expiration_date,quantity
+1,Bags,2/23/2023,3/10/2023,17
+2,Receipts,2/20/2023,3/13/2023,47
+3,Napkins,2/20/2023,3/8/2023,35
+4,Chicken Breasts,2/26/2023,3/13/2023,37
+5,Breading,2/27/2023,3/11/2023,48
+6,Butter,2/25/2023,3/9/2023,12
+7,White Buns,2/23/2023,3/6/2023,46
+8,Pickles,2/26/2023,3/9/2023,26
+9,Sandwich Containers,2/23/2023,3/6/2023,37
+10,Wheat Buns,2/25/2023,3/11/2023,15
+11,American Cheese,2/23/2023,3/8/2023,23
+12,Colby Jack Cheese,2/22/2023,3/6/2023,30
+13,Pepper Jack Cheese,2/23/2023,3/9/2023,30
+14,Lettuce,2/27/2023,3/6/2023,36
+15,Tomatoes,2/27/2023,3/13/2023,10
+16,Marination,2/26/2023,3/10/2023,44
+17,Bacon,2/20/2023,3/8/2023,10
+18,Spicy Seasoning,2/24/2023,3/6/2023,11
+19,Red Nuggets Containers,2/22/2023,3/9/2023,45
+20,White Nuggets Containers,2/21/2023,3/8/2023,18
+21,Waffle-Cut Potatoes,2/26/2023,3/13/2023,48
+22,Sea Salt,2/23/2023,3/12/2023,49
+23,Large Fry Containers,2/20/2023,3/11/2023,13
+24,Medium Fry Containers,2/27/2023,3/10/2023,38
+25,Brownies,2/22/2023,3/10/2023,43
+26,Cookies,2/23/2023,3/7/2023,11
+27,Dessert Bags,2/24/2023,3/10/2023,30
+28,Red Apples,2/22/2023,3/11/2023,23
+29,Green Apples,2/24/2023,3/7/2023,29
+30,Mandarin Oranges,2/24/2023,3/8/2023,34
+31,Strawberries,2/22/2023,3/10/2023,42
+32,Blueberries,2/21/2023,3/7/2023,39
+33,Plastic Spoons,2/20/2023,3/13/2023,33
+34,Small Clear Cups,2/26/2023,3/8/2023,33
+35,Greek Yogurt,2/21/2023,3/9/2023,30
+36,Cookie Crumbs,2/21/2023,3/10/2023,34
+37,Granola,2/25/2023,3/7/2023,28
+38,Waffle Potato Chips,2/20/2023,3/6/2023,25
+39,Mixed Greens,2/22/2023,3/8/2023,24
+40,Corn Kernels,2/23/2023,3/8/2023,36
+41,Monterey Jack Cheese,2/22/2023,3/8/2023,22
+42,Cheddar Cheese,2/27/2023,3/9/2023,40
+43,Eggs,2/25/2023,3/12/2023,16
+44,Grape Tomatoes,2/21/2023,3/9/2023,43
+45,Charred Tomato Seasoning,2/24/2023,3/11/2023,11
+46,Crispy Red Bell Pepper Seasoning,2/23/2023,3/12/2023,18
+47,Salad Containers,2/22/2023,3/12/2023,49
+48,Plastic Forks,2/22/2023,3/10/2023,15
+49,Blue Cheese,2/20/2023,3/13/2023,35
+50,Harvest Nut Granola Seasoning,2/20/2023,3/12/2023,21
+51,Roasted Almonds Seasoning,2/25/2023,3/13/2023,17
+52,Small Salad Containers,2/23/2023,3/10/2023,36
+53,Black Beans,2/20/2023,3/12/2023,27
+54,Poblano Chiles,2/24/2023,3/10/2023,39
+55,Red Bell Peppers,2/24/2023,3/12/2023,25
+56,Tortilla Strips,2/23/2023,3/10/2023,18
+57,Chili LImi Pepitas Seasoning,2/22/2023,3/11/2023,26
+58,Flaxseed Flour Flat Bread,2/23/2023,3/8/2023,11
+59,20 Oz Dasani Water Bottles,2/26/2023,3/9/2023,30
+60,Large Red Cups,2/22/2023,3/13/2023,30
+61,Medium Red Cups,2/23/2023,3/10/2023,40
+62,Lids,2/27/2023,3/10/2023,49
+63,Straws,2/20/2023,3/11/2023,47
+64,Sugar,2/23/2023,3/11/2023,46
+65,Ice,2/20/2023,3/10/2023,25
+66,Tea Leaves,2/21/2023,3/6/2023,21
+67,Lemon Juice,2/21/2023,3/6/2023,19
+68,Medium Clear Cups,2/21/2023,3/8/2023,35
+69,Dome Lids,2/25/2023,3/10/2023,30
+70,Cold-Brewed Coffee,2/24/2023,3/10/2023,17
+71,2% Milk,2/21/2023,3/9/2023,47
+72,Coffee Creamers,2/25/2023,3/9/2023,21
+73,Vanilla Creamers,2/23/2023,3/12/2023,32
+74,Cream,2/20/2023,3/8/2023,48
+75,Cones,2/24/2023,3/12/2023,32
+76,Vanilla Syrup,2/27/2023,3/10/2023,26
+77,Chocolate Syrup,2/24/2023,3/6/2023,17
+78,Strawberry Syrup,2/25/2023,3/7/2023,48
+79,Oreo Cookies,2/27/2023,3/7/2023,30
+80,Whipped Cream,2/25/2023,3/11/2023,14
+81,Cherries,2/22/2023,3/8/2023,48
+82,Chick-fil-A Sauce,2/23/2023,3/7/2023,49
+83,Polynesian Sauce,2/20/2023,3/12/2023,13
+84,Barbeque Sauce,2/25/2023,3/6/2023,16
+85,Honey Mustard Sauce,2/23/2023,3/9/2023,24
+86,Garden Herb Ranch Sauce,2/24/2023,3/9/2023,43
+87,Zesty Buffalo Sauce,2/22/2023,3/6/2023,45
+88,Sweet and Spicy Sriracha Sauce,2/23/2023,3/12/2023,33
+89,Honey Roasted BBQ Sauce,2/22/2023,3/12/2023,27
+90,Garden Herb Ranch Dressing,2/22/2023,3/6/2023,10
+91,Fat Free Honey Mustard Dressing,2/20/2023,3/13/2023,30
+92,Light Balsamic Vinaigrette Dressing,2/22/2023,3/12/2023,26
+93,Zesty Apple Cider Vinaigrette Dressing,2/24/2023,3/10/2023,12
+94,Creamy Salsa Dressing,2/24/2023,3/10/2023,16
+95,Light Italian Dressing,2/20/2023,3/11/2023,48
+96,Honey Poppyseed Dressing,2/25/2023,3/7/2023,49
+97,Avocado Lime Ranch Dressing,2/23/2023,3/6/2023,11
