@@ -12,10 +12,10 @@ const port = process.env.PORT || 3000;
 
 // Set up a connection pool to the PostgreSQL database
 const pool = new Pool({
-    user: 'csce315331_lambda_master',
-    host: 'csce-315-db.engr.tamu.edu',
-    database: 'csce315331_lambda',
-    password: 'lambda1',
+    user: 'tathluac_tathluach',
+    host: '104.225.208.23',
+    database: 'tathluac_cfa_pos',
+    password: 'sBzBgVcDIprafTfmmknC',
     port: 5432,
     ssl: {
         rejectUnauthorized: false
