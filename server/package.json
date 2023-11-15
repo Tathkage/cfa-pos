@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "rohanIndex.js",
+  "main": "serverRequestHandler.js",
   "scripts": {
-    "start": "node rohanIndex.js",
-    "devStart": "../../../form testing/my-app/server/node_modules/.bin/nodemon rohanIndex.js",
+    "start": "node serverRequestHandler.js",
+    "devStart": "../../../form testing/my-app/server/node_modules/.bin/nodemon serverRequestHandler.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
