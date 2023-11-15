@@ -74,7 +74,7 @@ function EmployeeLogin() {
      */
 
     function searchManager() {
-        axios.get(`http://localhost:3000/api/login_info?manager_id=${managerNumber}`)
+        axios.get(`https://cfapos.tathprojects.com/api/login_info?manager_id=${managerNumber}`)
             .then(function(response) {
 
                 //setManagerNumber(bcrypt.hashSync((response.data), salt) );
@@ -90,7 +90,7 @@ function EmployeeLogin() {
      * This functions handles the API and backend for the employee_id.
      */
     function searchEmployee() {
-        axios.get(`http://localhost:3000/api/login_info?server_id=${employeeNumber}`)
+        axios.get(`https://cfapos.tathprojects.com/api/login_info?server_id=${employeeNumber}`)
             .then(function(response) {
                 setManager(response.data);
             })
@@ -109,7 +109,7 @@ function EmployeeLogin() {
 
         console.log(bcrypt.hashSync(managerNumber, salt));
 
-        axios.post(`http://localhost:3000/api/userPass`,{formData}, {headers: { "Content-Type": "application/json" }})
+        axios.post(`https://cfapos.tathprojects.com/api/userPass`,{formData}, {headers: { "Content-Type": "application/json" }})
 
             .then(res=>{
                 formData.pass = bcrypt.hashSync(formData.pass, salt)

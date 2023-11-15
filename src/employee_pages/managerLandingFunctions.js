@@ -12,7 +12,7 @@ import { total } from '../totalProdsAndIngr';
  * @returns {Promise<AxiosResponse<any>>} All inventory data
  */
 export function viewInventory() {
-    return axios.get('http://localhost:3000/api/inventory')
+    return axios.get('https://cfapos.tathprojects.com/api/inventory')
         .then(function(response) {
             return response.data;
         })
@@ -32,7 +32,7 @@ export function viewInventory() {
 export function restockInventory(inventoryName, quantityAdd) {
     const data = { inventoryName, quantityAdd }; // create an object with the input data
 
-    return axios.post('http://localhost:3000/api/restockInventory', data) // make a POST request to update the inventory data
+    return axios.post('https://cfapos.tathprojects.com/api/restockInventory', data) // make a POST request to update the inventory data
         .then(function(response) {
             return response.data;
         })
@@ -52,7 +52,7 @@ export function restockInventory(inventoryName, quantityAdd) {
 export function addInventory(name, quantity) {
     const data = { name, quantity }; // create an object with the input data
 
-    return axios.post('http://localhost:3000/api/addInventory', data) // make a POST request to add a new item to the inventory data
+    return axios.post('https://cfapos.tathprojects.com/api/addInventory', data) // make a POST request to add a new item to the inventory data
         .then(function(response) {
             return response.data;
         })
@@ -70,7 +70,7 @@ export function addInventory(name, quantity) {
  */
 export function removeInventory(inventoryName) {
     const data = { inventoryName };
-    return axios.post('http://localhost:3000/api/removeInventory', data)
+    return axios.post('https://cfapos.tathprojects.com/api/removeInventory', data)
         .then(function(response) {
             return response.data;
         })
@@ -91,7 +91,7 @@ export function removeInventory(inventoryName) {
  */
 export function viewMenu() {
     // Send a GET request to the API endpoint to retrieve all inventory items
-    return axios.get('http://localhost:3000/api/menu')
+    return axios.get('https://cfapos.tathprojects.com/api/menu')
         .then(function(response) {
             return response.data;
         })
@@ -111,7 +111,7 @@ export function viewMenu() {
 export function updateMenu(menuName, updatedPrice) {
     const data = { menuName, updatedPrice }; // create an object with the input data
 
-    return axios.post('http://localhost:3000/api/updateMenu', data) // make a POST request to update the inventory data
+    return axios.post('https://cfapos.tathprojects.com/api/updateMenu', data) // make a POST request to update the inventory data
         .then(function(response) {
             return response.data;
         })
@@ -131,7 +131,7 @@ export function updateMenu(menuName, updatedPrice) {
 export function addMenu(name, price, inventoryItems, modifyItems) {
     const data = { name, price, inventoryItems, modifyItems };
 
-    return axios.post('http://localhost:3000/api/addMenu', data)
+    return axios.post('https://cfapos.tathprojects.com/api/addMenu', data)
         .then(function(response) {
             return response.data;
         })
@@ -150,7 +150,7 @@ export function addMenu(name, price, inventoryItems, modifyItems) {
 export function removeMenu(name) {
     const data = { name }; // create an object with the input data
 
-    return axios.post('http://localhost:3000/api/removeMenu', data) // make a POST request to remove the item from the menu
+    return axios.post('https://cfapos.tathprojects.com/api/removeMenu', data) // make a POST request to remove the item from the menu
         .then(function(response) {
             return response.data;
         })
@@ -161,7 +161,7 @@ export function removeMenu(name) {
 }
 
 export function seasonalMenu() {
-    return axios.get(`http://localhost:3000/api/seasonalMenu`)
+    return axios.get(`https://cfapos.tathprojects.com/api/seasonalMenu`)
         .then(function(response) {
             return response.data;
         })
@@ -184,7 +184,7 @@ export function seasonalMenu() {
  * @returns {Promise<AxiosResponse<any>>} All of the sales report data
  */
 export function salesReport(startDate, endDate) {
-    return axios.get(`http://localhost:3000/api/salesReport?startDate=${startDate}&endDate=${endDate}`)
+    return axios.get(`https://cfapos.tathprojects.com/api/salesReport?startDate=${startDate}&endDate=${endDate}`)
         .then(function(response) {
             return response.data;
         })
@@ -200,7 +200,7 @@ export function salesReport(startDate, endDate) {
  * @returns {Promise<AxiosResponse<any>>} The x and z report data
  */
 export function viewXZ() {
-    return axios.get(`http://localhost:3000/api/viewXZ`)
+    return axios.get(`https://cfapos.tathprojects.com/api/viewXZ`)
         .then(function(response) {
             return response.data;
         })
@@ -220,7 +220,7 @@ export function viewXZ() {
 export function xzReport(currentDate, currentTime) {
     const data = { currentDate, currentTime };
 
-    return axios.post(`http://localhost:3000/api/xzReport`, data)
+    return axios.post(`https://cfapos.tathprojects.com/api/xzReport`, data)
         .then(function(response) {
             return response.data;
         })
@@ -236,7 +236,7 @@ export function xzReport(currentDate, currentTime) {
  * @returns {Promise<AxiosResponse<any>>} Inventory items that have a quantity less than 30
  */
 export function restockReport() {
-    return axios.get('http://localhost:3000/api/restockReport')
+    return axios.get('https://cfapos.tathprojects.com/api/restockReport')
         .then(function(response) {
             return response.data;
         })
@@ -254,7 +254,7 @@ export function restockReport() {
  * @returns {Promise<AxiosResponse<any>>} The items commonly sold together data
  */
 export function commonReport(startDate, endDate) {
-    return axios.get(`http://localhost:3000/api/commonReport?startDate=${startDate}&endDate=${endDate}`)
+    return axios.get(`https://cfapos.tathprojects.com/api/commonReport?startDate=${startDate}&endDate=${endDate}`)
         .then(function(response) {
             return response.data;
         })
@@ -271,14 +271,14 @@ export function excessReport(startDate) {
 
     return axios
         .get(
-            `http://localhost:3000/api/excessReport?startDate=${startDate}&endDate=${endDate}`
+            `https://cfapos.tathprojects.com/api/excessReport?startDate=${startDate}&endDate=${endDate}`
         )
         .then(function (response) {
             const salesData = response.data.map((product) => {
                 const matchedProduct = total.find((p) => p.name === product.name);
                 if (matchedProduct) {
                     return axios
-                        .post("http://localhost:3000/api/arraysearchInventory", {
+                        .post("https://cfapos.tathprojects.com/api/arraysearchInventory", {
                             names: matchedProduct.ingredients,
                         })
                         .then(function (response) {
@@ -307,7 +307,7 @@ export function excessReport(startDate) {
             return Promise.all(salesData).then(() => {
                 // console.log('map:', map);
                 return axios
-                    .post("http://localhost:3000/api/mapInventory", { map: Object.fromEntries(map) })
+                    .post("https://cfapos.tathprojects.com/api/mapInventory", { map: Object.fromEntries(map) })
                     .then(function (response) {
                         const sumMap = new Map(Object.entries(response.data.inventory));
                         console.log('sumMap', sumMap);
@@ -348,7 +348,7 @@ export function excessReport(startDate) {
 export function placeOrder(cart, cartPrice) {
     const data = {cart, total_price: cartPrice};
 
-    return axios.post('http://localhost:3000/api/placeOrder',data)
+    return axios.post('https://cfapos.tathprojects.com/api/placeOrder',data)
         .then(function(response) {
             return response.data;
         })

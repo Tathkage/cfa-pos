@@ -10,7 +10,7 @@ function CompleteOrder() {
     const [productNumber, setProductNumber] = useState('');
     const [products, setProducts] = useState([]);
 
-    const url = "http://localhost:3000/"
+    const url = "https://cfapos.tathprojects.com"
 
     const [databaseQuery, setDatabaseQuery] = useState({
         product_id: ''
@@ -33,7 +33,7 @@ function CompleteOrder() {
     }
 
     function searchProduct() {
-        axios.get(`http://localhost:3000//api/data/:productInfo/data?product_number=${productNumber}`)
+        axios.get(`https://cfapos.tathprojects.com/api/data/:productInfo/data?product_number=${productNumber}`)
             .then(function(response) {
                 setProducts(response.data);
             })
