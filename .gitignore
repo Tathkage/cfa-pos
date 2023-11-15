@@ -1,3 +1,4 @@
 # Ignore database configuration files
 /server/serverRequestHandler.js
 /build/
+build.zip
