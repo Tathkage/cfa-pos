@@ -1,11 +1,12 @@
 {
   "name": "server",
+  "homepage": "https://cfapos.tathprojects.com/",
   "version": "1.0.0",
   "description": "",
   "main": "serverRequestHandler.js",
   "scripts": {
     "start": "node serverRequestHandler.js",
-    "devStart": "../../../form testing/my-app/server/node_modules/.bin/nodemon serverRequestHandler.js",
+    "devStart": "npx nodemon serverRequestHandler.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,7 +16,6 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "nodemon": "^2.0.22",
-    "pg": "^8.10.0",
-    "psql": "^0.0.1"
+    "pg": "^8.10.0"
   }
 }
